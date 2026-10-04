@@ -1,4 +1,6 @@
- "https://pan.lq520.cn/file/news/index.html?access=tv2026",
+{
+  "addresses": [
+"https://pan.lq520.cn/file/news/index.html?access=tv2026",
   "https://pan.lq520.cn/file/article/index.html?access=tv2026",
   "https://pan.lq520.cn/file/articles/index.html?access=tv2026",
   "https://ixxx111.pages.dev/index.html?access=tv2026",
@@ -114,3 +116,5 @@
   "http://tv.vdj666.com/live/scgdcache/attach/index.html?access=tv2026",
   "http://tv.vdj666.com/live/scgdcache/file/index.html?access=tv2026",
   "http://tv.vdj666.com/live/scgdcache/files/index.html?access=tv2026"
+    ]
+}
