@@ -825,6 +825,40 @@ h1{
         margin: 0 5px 14px !important;
     }
 }
+
+/* === 页面纵向排版优化（保留顶部标题和牢记入口原样） === */
+html { min-height: 100%; }
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  align-items: flex-start;
+  justify-content: center;
+}
+.page { width: 100%; max-width: 408px; }
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 36px);
+  min-height: calc(100dvh - 36px);
+}
+/* 最新地址区整体下移，按钮仍按原来的两列排列 */
+.address-grid { margin-top: clamp(95px, 20vh, 230px) !important; }
+/* 中间的剩余空间留给浏览器下载区，把下载区推到底部 */
+.browser-box { margin-top: auto; }
+.status { margin-bottom: 18px; }
+.footer { margin-top: 12px; }
+@media (max-width: 520px) {
+  .card {
+    min-height: calc(100vh - 28px);
+    min-height: calc(100dvh - 28px);
+  }
+  .address-grid { margin-top: clamp(85px, 17vh, 170px) !important; }
+}
+/* 屏幕高度较小时允许自然滚动，防止地址按钮和下载区相互覆盖 */
+@media (max-height: 690px) {
+  .address-grid { margin-top: 45px !important; }
+  .browser-box { margin-top: 32px; }
+}
 </style><!-- 基础防误操作：不影响地址按钮与手机轻触跳转 --><style>
   body { -webkit-user-select: none; user-select: none; }
   a, button { -webkit-touch-callout: default; touch-action: manipulation; }
