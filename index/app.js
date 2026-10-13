@@ -6,7 +6,7 @@
   // jsDelivr 通常以正确的 JavaScript MIME 类型提供 GitHub 仓库中的文件。
   var REMOTE_DOMAIN_JS = [
     'https://cdn.jsdelivr.net/gh/keluo8824-cell/index@main/index/domains.js'
-    // , 'https://gh-proxy.org/https://raw.githubusercontent.com/keluo8824-cell/index/refs/heads/main/index/domains.js'
+    // , 'https://你的备用CDN/domains.js'
   ];
   var LOCAL_DOMAIN_JS = './domains.js';
   var TIMEOUT = 3000;
