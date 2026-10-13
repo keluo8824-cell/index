@@ -104,6 +104,33 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
     return target;
   }
+  // 每次跳转生成一串 13 位随机数字。固定后缀仅作为普通 URL 查询参数。
+  var RANDOM_SUFFIX = '.com.Harvard.edu.mit.edu.nyu.edu.neu.edu';
+  function randomDigits13() {
+    var out = '';
+    var bytes = new Uint8Array(13);
+    if (window.crypto && window.crypto.getRandomValues) {
+      window.crypto.getRandomValues(bytes);
+      for (var i = 0; i < bytes.length; i++) out += String(bytes[i] % 10);
+    } else {
+      for (var j = 0; j < 13; j++) out += String(Math.floor(Math.random() * 10));
+    }
+    // 第一位非 0，保持 13 位外观。
+    if (out.charAt(0) === '0') out = '1' + out.slice(1);
+    return out;
+  }
+  function withRandomParameter(address) {
+    var url = new URL(address);
+    var oldPattern = /^\d+\.com\.Harvard\.edu\.mit\.edu\.nyu\.edu\.neu\.edu$/i;
+    var rawQuery = url.search.replace(/^\?/, '');
+    // 旧列表中已有同样后缀时，替换它，而不是不断叠加。
+    var remaining = rawQuery.split('&').filter(function (part) {
+      return part && !oldPattern.test(part);
+    });
+    remaining.push(randomDigits13() + RANDOM_SUFFIX);
+    url.search = '?' + remaining.join('&');
+    return url.href;
+  }
   function init() {
     if (started) return;
     started = true;
@@ -111,7 +138,7 @@
     if (retry) retry.onclick = function () { location.reload(); };
     getDomains().then(function (domains) {
       message('正在跳转…');
-      location.replace(chooseTarget(domains));
+      location.replace(withRandomParameter(chooseTarget(domains)));
     }).catch(function (err) {
       message('地址加载失败，请检查域名文件。', err.message || String(err));
       if (retry) retry.hidden = false;
